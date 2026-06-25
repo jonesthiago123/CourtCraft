@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CourtCraft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="ball-deco b1"></div>
+<div class="ball-deco b2"></div>
+
+<!-- ══════════════════════════
+     PAGE: Home
+══════════════════════════ -->
+<div id="page-home" class="page active">
+  <nav>
+    <div class="logo">🏀 <span>Court</span>Craft</div>
+    <button class="nav-btn" onclick="openAuth()">Log In / Sign Up</button>
+  </nav>
+  <main class="hero">
+    <div class="hero-tag">🔥 Level up your game</div>
+    <h1>TRAIN<br /><em>SMARTER.</em><br />PLAY HARDER.</h1>
+    <p class="hero-sub">Choose your training path. Build strength in the gym or sharpen your skills on the court.</p>
+    <div class="cards">
+      <div class="card orange" onclick="openWeightTraining()" role="button" tabindex="0">
+        <span class="card-icon">🏋️</span>
+        <h2>Weight Training</h2>
+        <p>Build explosive power, increase your vertical, and develop the strength every elite player needs.</p>
+        <div class="card-pills">
+          <span class="pill">Strength</span>
+          <span class="pill">Plyometrics</span>
+          <span class="pill">Recovery</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="card blue" onclick="openCourtTraining()" role="button" tabindex="0">
+        <span class="card-icon">🏀</span>
+        <h2>Court Training</h2>
+        <p>Sharpen your dribbling, perfect your shot, and build the IQ that separates good from great.</p>
+        <div class="card-pills">
+          <span class="pill">Shooting</span>
+          <span class="pill">Handles</span>
+          <span class="pill">Defense</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </main>
+  <footer class="stats">
+    <div class="stat"><div class="stat-num">2</div><div class="stat-label">Athletes</div></div>
+    <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Workouts</div></div>
+    <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Rating</div></div>
+  </footer>
+  <div class="creator-credit" style="text-align:center; color: rgba(250,250,250,.7); font-size:.85rem; margin-top:.75rem;">
+    Created By Thiago Jones · thiagojones2024@gmail.com
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     PAGE: Program Detail
+══════════════════════════ -->
+<div id="page-workout" class="page">
+  <nav>
+    <div class="logo">🏀 <span>Court</span>Craft</div>
+    <button class="nav-btn" onclick="goHome()">← Home</button>
+  </nav>
+  <div class="workout-page">
+    <div class="wp-header">
+      <div class="wp-header-top">
+        <button class="back-btn" onclick="goHome()">← Back to Training</button>
+        <span class="wp-tag" id="wp-tag">Weight Training</span>
+      </div>
+      <div class="wp-icon" id="wp-icon">🏋️</div>
+      <h1 id="wp-title">Program Name</h1>
+      <p id="wp-meta" class="wp-meta"></p>
+      <p id="wp-desc" class="wp-desc"></p>
+    </div>
+    <div class="exercises-grid" id="exercises-grid"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     PAGE: Exercise Session
+══════════════════════════ -->
+<div id="page-session" class="page">
+  <nav>
+    <div class="logo">🏀 <span>Court</span>Craft</div>
+    <button class="nav-btn" onclick="goToProgram()">← Program</button>
+  </nav>
+
+  <div class="session-page">
+
+    <!-- Progress bar -->
+    <div class="session-progress-wrap">
+      <div class="session-progress-bar">
+        <div class="session-progress-fill" id="session-progress-fill"></div>
+      </div>
+      <span class="session-counter" id="session-counter">Exercise 1 of 4</span>
+    </div>
+
+    <!-- Pre-start: Info Panel -->
+    <div class="info-panel" id="info-panel">
+      <div class="info-icon" id="info-icon">💪</div>
+      <h1 class="info-title" id="info-title">Exercise Name</h1>
+      <div class="info-badge" id="info-sets">3 Sets × 12 Reps</div>
+
+      <div class="info-block">
+        <div class="info-label">📋 How to do it</div>
+        <p class="info-text" id="info-instructions"></p>
+      </div>
+
+      <div class="info-block tip">
+        <div class="info-label">💡 Pro Tip</div>
+        <p class="info-text" id="info-tip"></p>
+      </div>
+
+      <button class="start-btn" id="start-btn" onclick="startTimer()">
+        Start Workout 🔥
+      </button>
+    </div>
+
+    <!-- Active: Timer Panel -->
+    <div class="timer-panel" id="timer-panel" style="display:none">
+      <div class="timer-exercise-name" id="timer-exercise-name"></div>
+
+      <div class="timer-ring-wrap">
+        <svg class="timer-ring" viewBox="0 0 200 200">
+          <circle class="ring-bg"   cx="100" cy="100" r="88" />
+          <circle class="ring-fill" cx="100" cy="100" r="88" id="ring-fill" />
+        </svg>
+        <div class="timer-display" id="timer-display">0:00</div>
+        <div class="timer-label"  id="timer-label">elapsed</div>
+      </div>
+
+      <div class="timer-sets-info" id="timer-sets-info"></div>
+
+      <div class="timer-buttons">
+        <button class="btn-pause" id="btn-pause" onclick="togglePause()">⏸ Pause</button>
+        <button class="btn-moveon" onclick="moveOn()">Move On →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     PAGE: Workout Complete
+══════════════════════════ -->
+<div id="page-complete" class="page">
+  <nav>
+    <div class="logo">🏀 <span>Court</span>Craft</div>
+    <button class="nav-btn" onclick="goHome()">← Home</button>
+  </nav>
+  <div class="complete-page">
+    <div class="complete-icon">🏆</div>
+    <h1 class="complete-title">Workout Complete!</h1>
+    <p class="complete-sub" id="complete-sub">You crushed every exercise. Rest up and come back stronger.</p>
+    <div class="complete-stats">
+      <div class="cs-stat">
+        <div class="cs-num" id="cs-exercises">0</div>
+        <div class="cs-label">Exercises</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-num" id="cs-time">0:00</div>
+        <div class="cs-label">Total Time</div>
+      </div>
+    </div>
+    <div class="complete-actions">
+      <button class="start-btn" onclick="goHome()">Back to Home</button>
+      <button class="back-btn" style="margin-top:.75rem" onclick="replayProgram()">Repeat Program</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     MODAL: Weight Training
+══════════════════════════ -->
+<div class="overlay" id="weight-overlay" onclick="handleOverlayClick(event,'weight-overlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('weight-overlay')">✕</button>
+    <div class="training-header">
+      <span class="training-icon">🏋️</span>
+      <div>
+        <h2 style="color:#FB923C">Weight Training</h2>
+        <p style="color:var(--text-muted);font-size:.85rem;margin:0">Choose a program to start</p>
+      </div>
+    </div>
+    <ul class="workout-list">
+      <li class="workout-item" onclick="goToWorkout('explosive-power')">
+        <span class="wi-icon">⚡</span>
+        <div class="wi-text"><div class="wi-name">Explosive Power</div><div class="wi-meta">3 Sets · 4 Exercises</div></div>
+        <span class="wi-arrow">›</span>
+      </li>
+      <li class="workout-item" onclick="goToWorkout('vertical-jump')">
+        <span class="wi-icon">📈</span>
+        <div class="wi-text"><div class="wi-name">Vertical Jump</div><div class="wi-meta">3 Sets · 3 Exercises</div></div>
+        <span class="wi-arrow">›</span>
+      </li>
+      <li class="workout-item" onclick="goToWorkout('core-stability')">
+        <span class="wi-icon">🎯</span>
+        <div class="wi-text"><div class="wi-name">Core & Stability</div><div class="wi-meta">3 Sets · 3 Exercises</div></div>
+        <span class="wi-arrow">›</span>
+      </li>
+      <li class="workout-item" onclick="goToWorkout('in-season')">
+        <span class="wi-icon">🔄</span>
+        <div class="wi-text"><div class="wi-name">In-Season Maintenance</div><div class="wi-meta">3 Exercises</div></div>
+        <span class="wi-arrow">›</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     MODAL: Court Training
+══════════════════════════ -->
+<div class="overlay" id="court-overlay" onclick="handleOverlayClick(event,'court-overlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('court-overlay')">✕</button>
+    <div class="training-header">
+      <span class="training-icon">🏀</span>
+      <div>
+        <h2 style="color:#60A5FA">Court Training</h2>
+        <p style="color:var(--text-muted);font-size:.85rem;margin:0">Coming soon — stay tuned!</p>
+      </div>
+    </div>
+    <div style="text-align:center;padding:2rem 0;color:var(--text-muted);font-size:.95rem;">
+      Court training programs are being built.<br/>Check back soon! 🏀
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     MODAL: Auth
+══════════════════════════ -->
+<div class="overlay" id="auth-overlay" onclick="handleOverlayClick(event,'auth-overlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('auth-overlay')">✕</button>
+    <h2 id="auth-title">Welcome Back</h2>
+    <p class="sub" id="auth-sub">Sign in to track your progress.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login"  onclick="switchTab('login')">Log In</button>
+      <button class="auth-tab"        id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+    <form id="auth-form" onsubmit="handleAuth(event)">
+      <div class="field" id="field-name" style="display:none">
+        <label>Full Name</label>
+        <input type="text" id="input-name" placeholder="Jordan Payton" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="input-email" placeholder="you@example.com" required />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="input-password" placeholder="••••••••" required minlength="6" />
+      </div>
+      <button class="btn-primary" type="submit" id="auth-submit">Log In</button>
+    </form>
+  </div>
+</div>
+
+
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
